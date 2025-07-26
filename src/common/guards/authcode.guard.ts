@@ -1,0 +1,22 @@
+import { Injectable, CanActivate, ExecutionContext } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
+import { Observable } from 'rxjs';
+
+@Injectable()
+export class AuthCodeGuard implements CanActivate {
+  constructor(protected readonly configService: ConfigService) {}
+
+  canActivate(
+    context: ExecutionContext,
+  ): boolean | Promise<boolean> | Observable<boolean> {
+    const request = context.switchToHttp().getRequest();
+
+    const { code } = request.query;
+
+    if (code !== this.configService.get('CODE')) {
+      return false;
+    }
+
+    return true;
+  }
+}
