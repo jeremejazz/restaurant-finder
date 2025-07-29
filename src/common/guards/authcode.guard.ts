@@ -1,6 +1,11 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
-import { Injectable, CanActivate, ExecutionContext } from '@nestjs/common';
+import {
+  Injectable,
+  CanActivate,
+  ExecutionContext,
+  ForbiddenException,
+} from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { Observable } from 'rxjs';
 
@@ -16,7 +21,7 @@ export class AuthCodeGuard implements CanActivate {
     const { code } = request.query;
 
     if (code !== this.configService.get('CODE')) {
-      return false;
+      throw new ForbiddenException('Invalid API Key');
     }
 
     return true;
