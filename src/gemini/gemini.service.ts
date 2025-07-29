@@ -11,7 +11,7 @@ export class GeminiService {
 
   async generate(message: string, config: GenerateContentConfig = {}) {
     const response = await this.ai.models.generateContent({
-      model: 'gemini-2.0-flash-001',
+      model: this.configService.getOrThrow('GEMINI_MODEL'),
       contents: message,
       config,
     });
