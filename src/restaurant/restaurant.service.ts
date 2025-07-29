@@ -7,6 +7,21 @@ import { LLMQueryResult } from './interfaces/llm-query-result';
 export class RestaurantService {
   constructor(protected readonly geminiService: GeminiService) {}
   async search(message: string): Promise<RestaurantResultDto> {
+    const queryData = await this.requestGemini(message);
+
+    this.requestFoursquare(queryData);
+    // FourSquare API Request
+
+    return {
+      name: '',
+      address: '',
+      cuisine: '',
+      rating: null,
+      priceLevel: null,
+      operatingHours: null,
+    };
+  }
+  async requestGemini(message: string) {
     const config = {
       responseMimeType: 'application/json',
       responseSchema: {
@@ -54,20 +69,11 @@ export class RestaurantService {
     if (!llmOuput) {
       throw new BadRequestException('An error has occured');
     }
-    const queryData = JSON.parse(llmOuput) as LLMQueryResult;
-    this.requestFoursquare(queryData);
-    // FourSquare API Request
 
-    return {
-      name: '',
-      address: '',
-      cuisine: '',
-      rating: null,
-      priceLevel: null,
-      operatingHours: null,
-    };
+    const data = JSON.parse(llmOuput) as LLMQueryResult;
+
+    return data;
   }
-  // requestGemini
   requestFoursquare(query: LLMQueryResult) {
     return query;
   }

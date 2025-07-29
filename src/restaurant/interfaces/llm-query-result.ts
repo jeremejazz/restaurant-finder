@@ -1,3 +1,11 @@
 export interface LLMQueryResult {
-  id: string;
+  parameters: LLMQueryResultParameters;
+}
+
+interface LLMQueryResultParameters {
+  query: string;
+  near: string;
+  price: number;
+  open_now: boolean;
+  rating: number;
 }
