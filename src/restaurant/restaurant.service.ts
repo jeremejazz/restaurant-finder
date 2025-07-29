@@ -2,7 +2,10 @@
 /* eslint-disable @typescript-eslint/no-unsafe-return */
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { GeminiService } from '../gemini/gemini.service';
-import { RestaurantResultDto } from './dto/restaurant-result.dto';
+import {
+  RestaurantResultDetailsDto,
+  RestaurantResultDto,
+} from './dto/restaurant-result.dto';
 import { LLMQueryResult } from './interfaces/llm-query-result.interface';
 import { FoursquareService } from '../foursquare/foursquare.service';
 import { FoursquareSearchPlace } from '../foursquare/interfaces/foursquare-search-place.interface';
@@ -16,17 +19,11 @@ export class RestaurantService {
   async search(message: string): Promise<RestaurantResultDto> {
     const queryData = await this.requestGemini(message);
 
-    const foursquareResult = await this.requestFoursquare(queryData);
+    const placeSearchResult = await this.requestFoursquare(queryData);
     // FourSquare API Request
 
-    console.log(foursquareResult);
     return {
-      name: '',
-      address: '',
-      cuisine: '',
-      rating: null,
-      priceLevel: null,
-      operatingHours: null,
+      data: placeSearchResult,
     };
   }
   async requestGemini(message: string) {
@@ -82,7 +79,9 @@ export class RestaurantService {
 
     return data;
   }
-  async requestFoursquare(llmResult: LLMQueryResult) {
+  async requestFoursquare(
+    llmResult: LLMQueryResult,
+  ): Promise<RestaurantResultDetailsDto[]> {
     const { query, near, open_now, price, rating } = llmResult.parameters;
 
     const min_price = price ? price.toString() : null;
@@ -96,6 +95,22 @@ export class RestaurantService {
       open_now: open_now ? open_now.toString() : null,
       rating: rating ? rating.toString() : null,
     };
-    return this.fourSquareService.searchPlaces(foursquarePayload);
+
+    const searchPlaceResponse =
+      await this.fourSquareService.searchPlaces(foursquarePayload);
+
+    const restaurantResults = searchPlaceResponse.results.map((item) => {
+      const { name, categories, location, hours, price, rating } = item;
+      return {
+        name,
+        cuisine: categories.map<string>((item) => item.short_name),
+        address: location.formatted_address,
+        operatingHours: hours ? hours?.display : null,
+        priceLevel: price ?? null,
+        rating: rating ?? null,
+      } as RestaurantResultDetailsDto;
+    });
+
+    return restaurantResults;
   }
 }

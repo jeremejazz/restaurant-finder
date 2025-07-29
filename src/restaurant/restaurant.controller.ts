@@ -9,8 +9,12 @@ export class RestaurantController {
 
   @Get()
   @UseGuards(AuthCodeGuard)
-  search(@Query() query: RestaurantSearchDto) {
+  async search(@Query() query: RestaurantSearchDto) {
     const { message } = query;
-    return this.restaurantService.search(message);
+    const data = await this.restaurantService.search(message);
+    return {
+      ...data,
+      success: true,
+    };
   }
 }

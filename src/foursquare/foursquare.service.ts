@@ -3,6 +3,7 @@ import { HttpService } from '@nestjs/axios';
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { FoursquareSearchPlace } from './interfaces/foursquare-search-place.interface';
+import { FoursquarePlaceAPIResponse } from './interfaces/foursquare-place-api-response.interface';
 
 @Injectable()
 export class FoursquareService {
@@ -11,7 +12,9 @@ export class FoursquareService {
     protected readonly configService: ConfigService,
   ) {}
 
-  async searchPlaces(params: FoursquareSearchPlace) {
+  async searchPlaces(
+    params: FoursquareSearchPlace,
+  ): Promise<FoursquarePlaceAPIResponse> {
     const options = {
       method: 'GET',
       headers: {
