@@ -1,5 +1,7 @@
 # Restaurant Finder
 
+[![NestJS Auth CI](https://github.com/jeremejazz/restaurant-finder/actions/workflows/node.js.yml/badge.svg)](https://github.com/jeremejazz/restaurant-finder/actions/workflows/node.js.yml)
+
 ## Project setup
 
 ```bash
