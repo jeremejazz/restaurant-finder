@@ -1,24 +1,27 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { GeminiService } from './gemini.service';
+import { FoursquareService } from './foursquare.service';
+import { HttpService } from '@nestjs/axios';
 import { ConfigService } from '@nestjs/config';
 
-describe('GeminiService', () => {
-  let service: GeminiService;
+describe('FoursquareService', () => {
+  let service: FoursquareService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
-        GeminiService,
+        FoursquareService,
+        {
+          provide: HttpService,
+          useValue: {},
+        },
         {
           provide: ConfigService,
-          useValue: {
-            get: jest.fn(),
-          },
+          useValue: {},
         },
       ],
     }).compile();
 
-    service = module.get<GeminiService>(GeminiService);
+    service = module.get<FoursquareService>(FoursquareService);
   });
 
   it('should be defined', () => {

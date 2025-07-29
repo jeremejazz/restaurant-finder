@@ -5,4 +5,6 @@ export class RestaurantSearchDto {
   @IsNotEmpty()
   @MaxLength(400)
   message: string;
+
+  code: string;
 }

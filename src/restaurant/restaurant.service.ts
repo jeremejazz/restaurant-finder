@@ -1,10 +1,32 @@
-import { Injectable } from '@nestjs/common';
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/no-unsafe-return */
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { GeminiService } from '../gemini/gemini.service';
+import {
+  RestaurantResultDetailsDto,
+  RestaurantResultDto,
+} from './dto/restaurant-result.dto';
+import { LLMQueryResult } from './interfaces/llm-query-result.interface';
+import { FoursquareService } from '../foursquare/foursquare.service';
+import { FoursquareSearchPlace } from '../foursquare/interfaces/foursquare-search-place.interface';
 
 @Injectable()
 export class RestaurantService {
-  constructor(protected readonly geminiService: GeminiService) {}
+  constructor(
+    protected readonly geminiService: GeminiService,
+    protected readonly fourSquareService: FoursquareService,
+  ) {}
   async search(message: string): Promise<RestaurantResultDto> {
+    const queryData = await this.requestGemini(message);
+
+    const placeSearchResult = await this.requestFoursquare(queryData);
+    // FourSquare API Request
+
+    return {
+      data: placeSearchResult,
+    };
+  }
+  async requestGemini(message: string) {
     const config = {
       responseMimeType: 'application/json',
       responseSchema: {
@@ -49,17 +71,46 @@ export class RestaurantService {
     const prompt = `${message}`;
     const llmOuput = await this.geminiService.generate(prompt, config);
 
-    // FourSquare API Request
+    if (!llmOuput) {
+      throw new BadRequestException('An error has occured');
+    }
 
-    return {
-      name: '',
-      address: '',
-      cuisine: '',
-      rating: null,
-      priceLevel: null,
-      operatingHours: null,
-    };
+    const data = JSON.parse(llmOuput) as LLMQueryResult;
+
+    return data;
   }
-  // requestGemini
-  // requestFoursquare
+  async requestFoursquare(
+    llmResult: LLMQueryResult,
+  ): Promise<RestaurantResultDetailsDto[]> {
+    const { query, near, open_now, price, rating } = llmResult.parameters;
+
+    const min_price = price ? price.toString() : null;
+    const max_price = price ? price.toString() : null;
+
+    const foursquarePayload: FoursquareSearchPlace = {
+      query: query ?? null,
+      near: near ?? null,
+      min_price,
+      max_price,
+      open_now: open_now ? open_now.toString() : null,
+      rating: rating ? rating.toString() : null,
+    };
+
+    const searchPlaceResponse =
+      await this.fourSquareService.searchPlaces(foursquarePayload);
+
+    const restaurantResults = searchPlaceResponse.results.map((item) => {
+      const { name, categories, location, hours, price, rating } = item;
+      return {
+        name,
+        cuisine: categories.map<string>((item) => item.short_name),
+        address: location.formatted_address,
+        operatingHours: hours ? hours?.display : null,
+        priceLevel: price ?? null,
+        rating: rating ?? null,
+      } as RestaurantResultDetailsDto;
+    });
+
+    return restaurantResults;
+  }
 }
