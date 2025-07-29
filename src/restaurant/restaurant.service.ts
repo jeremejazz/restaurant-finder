@@ -1,5 +1,7 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { GeminiService } from '../gemini/gemini.service';
+import { RestaurantResultDto } from './dto/restaurant-result.dto';
+import { LLMQueryResult } from './interfaces/llm-query-result';
 
 @Injectable()
 export class RestaurantService {
@@ -49,6 +51,11 @@ export class RestaurantService {
     const prompt = `${message}`;
     const llmOuput = await this.geminiService.generate(prompt, config);
 
+    if (!llmOuput) {
+      throw new BadRequestException('An error has occured');
+    }
+    const queryData = JSON.parse(llmOuput) as LLMQueryResult;
+    this.requestFoursquare(queryData);
     // FourSquare API Request
 
     return {
@@ -61,5 +68,7 @@ export class RestaurantService {
     };
   }
   // requestGemini
-  // requestFoursquare
+  requestFoursquare(query: LLMQueryResult) {
+    return query;
+  }
 }

@@ -1,4 +1,4 @@
-class RestaurantResultDto {
+export class RestaurantResultDto {
   name: string;
   address: string;
   cuisine: string;
