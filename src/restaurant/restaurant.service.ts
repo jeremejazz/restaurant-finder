@@ -44,10 +44,17 @@ export class RestaurantService {
                 type: 'STRING',
                 description: 'A string naming a locality in the world',
               },
-              price: {
+              min_price: {
                 type: 'INTEGER',
                 description:
-                  'Valid values range between where 1 is most affordable and 4 is most expensive',
+                  'Minimum Price. where 1 is most affordable and 4 is most expensive, inclusive.',
+                minimum: 1,
+                maximum: 4,
+              },
+              max_price: {
+                type: 'INTEGER',
+                description:
+                  'Maximum Price. where 1 is most affordable and 4 is most expensive, inclusive.',
                 minimum: 1,
                 maximum: 4,
               },
@@ -76,22 +83,20 @@ export class RestaurantService {
     }
 
     const data = JSON.parse(llmOuput) as LLMQueryResult;
-
     return data;
   }
+
   async requestFoursquare(
     llmResult: LLMQueryResult,
   ): Promise<RestaurantResultDetailsDto[]> {
-    const { query, near, open_now, price, rating } = llmResult.parameters;
-
-    const min_price = price ? price.toString() : null;
-    const max_price = price ? price.toString() : null;
+    const { query, near, open_now, min_price, max_price, rating } =
+      llmResult.parameters;
 
     const foursquarePayload: FoursquareSearchPlace = {
       query: query ?? null,
       near: near ?? null,
-      min_price,
-      max_price,
+      min_price: min_price ? min_price.toString() : null,
+      max_price: max_price ? max_price.toString() : null,
       open_now: open_now ? open_now.toString() : null,
       rating: rating ? rating.toString() : null,
     };

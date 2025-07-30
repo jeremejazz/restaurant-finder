@@ -5,7 +5,8 @@ export interface LLMQueryResult {
 interface LLMQueryResultParameters {
   query: string;
   near: string;
-  price: number;
+  min_price: number;
+  max_price: number;
   open_now: boolean;
   rating: number;
 }
