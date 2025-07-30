@@ -1,8 +1,8 @@
 export interface FoursquareSearchPlace {
-  query: string | null;
-  near: string | null;
-  min_price: string | null;
-  max_price: string | null;
-  open_now: string | null;
-  rating: string | null;
+  query?: string | undefined | null;
+  near?: string | undefined | null;
+  min_price?: string | undefined | null;
+  max_price?: string | undefined | null;
+  open_now?: string | undefined | null;
+  rating?: string | undefined | null;
 }
