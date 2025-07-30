@@ -66,7 +66,7 @@ Returns a JSON with list of restaurants containing the following:
 
 ## Live Demo
 
-A live demo of this project is available [here](https://restaurant-finder-ebon.vercel.app/)
+A live demo of this project is available [here](https://restaurant-finder-rem.vercel.app)
 
 ### Limitations
 
