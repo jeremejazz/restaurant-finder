@@ -3,5 +3,4 @@
 
 ###
 # @prompt message
-#
 GET http://{{baseUrl}}/api/execute?code={{code}}&message={{message}} HTTP/1.1

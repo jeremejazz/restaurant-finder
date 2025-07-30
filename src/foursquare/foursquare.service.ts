@@ -28,9 +28,10 @@ export class FoursquareService {
       this.configService.getOrThrow('FOURSQUARE_PLACE_API_URL'),
     );
 
-    const { query, max_price, min_price, open_now, rating } = params;
+    const { query, max_price, min_price, open_now, rating, near } = params;
 
     if (query) url.searchParams.append('query', query);
+    if (near) url.searchParams.append('near', near);
     if (max_price) url.searchParams.append('max_price', max_price);
     if (min_price) url.searchParams.append('min_price', min_price);
     if (open_now) url.searchParams.append('open_now', open_now);
