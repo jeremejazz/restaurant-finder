@@ -1,6 +1,6 @@
 # Restaurant Finder
 
-[![NestJS Auth CI](https://github.com/jeremejazz/restaurant-finder/actions/workflows/node.js.yml/badge.svg)](https://github.com/jeremejazz/restaurant-finder/actions/workflows/node.js.yml) ![Vercel Deploy](https://deploy-badge.vercel.app/vercel/restaurant-finder-rem?root=api)
+[![NestJS Auth CI](https://github.com/jeremejazz/restaurant-finder/actions/workflows/node.js.yml/badge.svg)](https://github.com/jeremejazz/restaurant-finder/actions/workflows/node.js.yml) ![Vercel Deploy](https://deploy-badge.vercel.app/vercel/restaurant-finder-rem)
 
 <p align="center">
 <img src="chef-logo.svg" alt="Chef Hat" height="300px" />
