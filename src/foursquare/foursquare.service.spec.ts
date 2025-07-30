@@ -43,6 +43,10 @@ describe('FoursquareService', () => {
       query: 'Chicken Fastfood',
       near: 'New York',
       max_price: '1',
+      fsq_category_ids: 'fsq_category_ids',
+      min_price: 'min_price',
+      open_now: 'open_now',
+      rating: '5',
     };
     jest.spyOn(configService, 'getOrThrow').mockReturnValue(baseUrl);
     const httpSvcSpy = jest
@@ -64,6 +68,13 @@ describe('FoursquareService', () => {
     url.searchParams.append('query', searchQuery.query ?? '');
     url.searchParams.append('near', searchQuery.near ?? '');
     url.searchParams.append('max_price', searchQuery.max_price ?? '');
+    url.searchParams.append('min_price', searchQuery.min_price ?? '');
+    url.searchParams.append('open_now', searchQuery.open_now ?? '');
+    url.searchParams.append('rating', searchQuery.rating ?? '');
+    url.searchParams.append(
+      'fsq_category_ids',
+      searchQuery.fsq_category_ids ?? '',
+    );
 
     expect(httpSvcSpy).toHaveBeenCalledWith(url.toString(), expect.anything());
 

@@ -9,12 +9,14 @@ import {
 import { LLMQueryResult } from './interfaces/llm-query-result.interface';
 import { FoursquareService } from '../foursquare/foursquare.service';
 import { FoursquareSearchPlace } from '../foursquare/interfaces/foursquare-search-place.interface';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class RestaurantService {
   constructor(
     protected readonly geminiService: GeminiService,
     protected readonly fourSquareService: FoursquareService,
+    protected readonly configService: ConfigService,
   ) {}
   async search(message: string): Promise<RestaurantResultDto> {
     const queryData = await this.requestGemini(message);
@@ -100,6 +102,7 @@ export class RestaurantService {
       max_price: max_price ? max_price.toString() : null,
       open_now: open_now ? open_now.toString() : null,
       rating: rating ? rating.toString() : null,
+      fsq_category_ids: this.configService.get('FOURSQUARE_CATEGORY_IDS'),
     };
 
     const searchPlaceResponse =
