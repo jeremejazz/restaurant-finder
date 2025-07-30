@@ -13,6 +13,13 @@ export class RestaurantResultDetailsDto {
   priceLevel: string | null;
   @ApiProperty({ type: String, nullable: true })
   operatingHours: string | null;
+
+  @ApiProperty({ type: String, nullable: true })
+  latitude: string | null;
+  @ApiProperty({ type: String, nullable: true })
+  longitude: string | null;
+  @ApiProperty({ type: String, nullable: true })
+  tel: string | null;
 }
 
 export class RestaurantResultDto {
