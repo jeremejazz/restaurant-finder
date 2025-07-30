@@ -5,4 +5,4 @@ Find nearby cheap fastfood restaurant in paranaque city.
 
 Find a chinese restaurant in Cebu City
 
-Find me a medium expensive italian restaurant in Paris that's open now and has at least a 6-star rating.
+Find me a pizza restaurant in Cebu City that's open now and has at least a 4-star rating.
