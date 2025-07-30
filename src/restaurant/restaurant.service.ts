@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-return */
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable, Logger } from '@nestjs/common';
 import { GeminiService } from '../gemini/gemini.service';
 import {
   RestaurantResultDetailsDto,
@@ -83,6 +83,7 @@ export class RestaurantService {
     }
 
     const data = JSON.parse(llmOuput) as LLMQueryResult;
+    Logger.debug(`LLM Response: ${llmOuput}`);
     return data;
   }
 
