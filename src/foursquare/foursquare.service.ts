@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unsafe-return */
 import { HttpService } from '@nestjs/axios';
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { FoursquareSearchPlace } from './interfaces/foursquare-search-place.interface';
 import { FoursquarePlaceAPIResponse } from './interfaces/foursquare-place-api-response.interface';
@@ -37,6 +37,7 @@ export class FoursquareService {
     if (open_now) url.searchParams.append('open_now', open_now);
     if (rating) url.searchParams.append('rating', rating);
 
+    Logger.debug(`Foursquare Query: ${url.toString()}`);
     const response = await this.httpService.axiosRef.get(
       url.toString(),
       options,
