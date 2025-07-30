@@ -1,6 +1,6 @@
 # Restaurant Finder
 
-[![NestJS Auth CI](https://github.com/jeremejazz/restaurant-finder/actions/workflows/node.js.yml/badge.svg)](https://github.com/jeremejazz/restaurant-finder/actions/workflows/node.js.yml)
+[![NestJS Auth CI](https://github.com/jeremejazz/restaurant-finder/actions/workflows/node.js.yml/badge.svg)](https://github.com/jeremejazz/restaurant-finder/actions/workflows/node.js.yml) ![Vercel Deploy](https://deploy-badge.vercel.app/vercel/restaurant-finder-rem)
 
 <p align="center">
 <img src="chef-logo.svg" alt="Chef Hat" height="300px" />
@@ -66,7 +66,7 @@ Returns a JSON with list of restaurants containing the following:
 
 ## Live Demo
 
-A live demo of this project is available [here](https://restaurant-finder-rem.vercel.app)
+A live demo of this project is available [here](https://restaurant-finder-rem.vercel.app/api)
 
 ### Limitations
 

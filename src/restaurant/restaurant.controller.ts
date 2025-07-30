@@ -5,8 +5,8 @@ import { AuthCodeGuard } from '../common/guards/authcode.guard';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { RestaurantResultDto } from './dto/restaurant-result.dto';
 
-@Controller('execute')
-@ApiTags('Execute')
+@Controller('api/execute')
+@ApiTags('Restaurant Search')
 export class RestaurantController {
   constructor(private readonly restaurantService: RestaurantService) {}
 

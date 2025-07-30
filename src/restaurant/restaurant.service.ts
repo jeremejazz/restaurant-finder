@@ -109,7 +109,17 @@ export class RestaurantService {
       await this.fourSquareService.searchPlaces(foursquarePayload);
 
     const restaurantResults = searchPlaceResponse.results.map((item) => {
-      const { name, categories, location, hours, price, rating } = item;
+      const {
+        name,
+        categories,
+        location,
+        hours,
+        price,
+        rating,
+        latitude,
+        longitude,
+        tel,
+      } = item;
       return {
         name,
         cuisine: categories.map<string>((item) => item.name),
@@ -117,6 +127,9 @@ export class RestaurantService {
         operatingHours: hours ? hours?.display : null,
         priceLevel: price ?? null,
         rating: rating ?? null,
+        latitude: latitude.toString(),
+        longitude: longitude.toString(),
+        tel: tel ?? null,
       } as RestaurantResultDetailsDto;
     });
 

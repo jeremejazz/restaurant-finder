@@ -59,6 +59,9 @@ describe('RestaurantService', () => {
         operatingHours: null,
         priceLevel: null,
         rating: '5',
+        latitude: '1',
+        longitude: '2',
+        tel: '',
       },
     ];
     jest
@@ -67,6 +70,7 @@ describe('RestaurantService', () => {
 
     const { data } = await service.search(message);
     expect(data[0].name).toBe('McDonalds');
+    expect(data[0].rating).toBe('5');
     expect(requestGeminiSpy).toHaveBeenCalled();
   });
 

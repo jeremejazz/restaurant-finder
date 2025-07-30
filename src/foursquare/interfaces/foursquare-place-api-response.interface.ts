@@ -10,4 +10,7 @@ class FoursquarePlaceDetail {
   price?: number;
   rating?: number;
   hours?: { display: string };
+  tel?: string | undefined;
+  latitude: number;
+  longitude: number;
 }
