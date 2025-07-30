@@ -5,6 +5,7 @@ import { RestaurantResultDetailsDto } from './dto/restaurant-result.dto';
 import { GeminiService } from '../gemini/gemini.service';
 
 import { FoursquareService } from '../foursquare/foursquare.service';
+import { ConfigService } from '@nestjs/config';
 
 describe('RestaurantService', () => {
   let service: RestaurantService;
@@ -25,6 +26,12 @@ describe('RestaurantService', () => {
           provide: FoursquareService,
           useValue: {
             searchPlaces: jest.fn(),
+          },
+        },
+        {
+          provide: ConfigService,
+          useValue: {
+            get: jest.fn(),
           },
         },
       ],

@@ -5,4 +5,5 @@ export interface FoursquareSearchPlace {
   max_price?: string | undefined | null;
   open_now?: string | undefined | null;
   rating?: string | undefined | null;
+  fsq_category_ids?: string | undefined;
 }
