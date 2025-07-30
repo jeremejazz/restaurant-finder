@@ -15,6 +15,7 @@ describe('AuthCodeGuard', () => {
           provide: ConfigService,
           useValue: {
             get: jest.fn().mockReturnValue('code'),
+            getOrThrow: jest.fn(),
           },
         },
       ],
@@ -25,7 +26,9 @@ describe('AuthCodeGuard', () => {
   });
 
   it('should check for authentication code', async () => {
-    const configSpy = jest.spyOn(configService, 'get').mockReturnValue('20');
+    const configSpy = jest
+      .spyOn(configService, 'getOrThrow')
+      .mockReturnValue('20');
 
     const mockExecutionContext: ExecutionContext = {
       getClass: jest.fn(),
