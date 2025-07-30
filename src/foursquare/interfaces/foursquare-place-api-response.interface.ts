@@ -4,7 +4,7 @@ export interface FoursquarePlaceAPIResponse {
 
 class FoursquarePlaceDetail {
   name: string;
-  categories: { short_name: string }[];
+  categories: { short_name: string; name: string }[];
 
   location: { formatted_address: string };
   price?: number;

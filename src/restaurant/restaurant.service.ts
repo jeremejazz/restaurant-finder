@@ -112,7 +112,7 @@ export class RestaurantService {
       const { name, categories, location, hours, price, rating } = item;
       return {
         name,
-        cuisine: categories.map<string>((item) => item.short_name),
+        cuisine: categories.map<string>((item) => item.name),
         address: location.formatted_address,
         operatingHours: hours ? hours?.display : null,
         priceLevel: price ?? null,
