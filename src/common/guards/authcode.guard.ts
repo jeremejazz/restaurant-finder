@@ -20,7 +20,7 @@ export class AuthCodeGuard implements CanActivate {
 
     const { code } = request.query;
 
-    if (code !== this.configService.get('CODE')) {
+    if (code !== this.configService.getOrThrow('CODE')) {
       throw new ForbiddenException('Invalid API Key');
     }
 
