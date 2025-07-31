@@ -3,7 +3,7 @@
 [![NestJS Auth CI](https://github.com/jeremejazz/restaurant-finder/actions/workflows/node.js.yml/badge.svg)](https://github.com/jeremejazz/restaurant-finder/actions/workflows/node.js.yml) ![Vercel Deploy](https://deploy-badge.vercel.app/vercel/restaurant-finder-rem)
 
 <p align="center">
-<img src="chef-logo.svg" alt="Chef Hat" height="300px" />
+<img src="images/chef-logo.svg" alt="Chef Hat" height="250px"  />
 </p>
 
 ## Project setup
@@ -45,13 +45,25 @@ $ npm run test
 
 ## API
 
-To open the Swgger docs, add `/docs` in the browser after the base URL. (ex: https://localhost:3000/docs)
+![Diagram](images/diagram-resto-finder.png)
 
-`GET` /api/execute
+When user/client sends a message, the message is processed by an LLM (Google Gemini) which is converted into JSON format that will be passed to the [Foursquare Places API](https://docs.foursquare.com/fsq-developers-places/reference/place-search)
 
-- Parameters
-  - `code`
-  - `message`
+### `GET` /api/execute
+
+#### Description:
+
+Endpoint for sending a message to send a query a list of restaurant
+
+#### Parameters
+
+- `code` - API Key
+- `message` - message to make a request to LLM for searching restaurant. Message can be in plain sentence.
+
+Example messages:
+
+- Find me a cheap sushi restaurant in downtown Los Angeles that's open now and has at least a 4-star rating.
+- Find me a pizza restaurant in Baguio City that's open now and has at least a 4-star rating.
 
 ### Response
 
@@ -64,10 +76,4 @@ Returns a JSON with list of restaurants containing the following:
 - **Price Level**
 - **Operating Hours**
 
-## Live Demo
-
-A live demo of this project is available [here](https://restaurant-finder-rem.vercel.app/api)
-
-### Limitations
-
-Since this is not using the Premium subscription of foursquare, some of the fields may not be available in response. For more information about response fields, please check the [documentation](https://docs.foursquare.com/fsq-developers-places/reference/response-fields).
+For more information, please see the swagger docs. In the browser, add `/docs` after the base URL. (ex: https://localhost:3000/docs)

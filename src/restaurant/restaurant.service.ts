@@ -28,6 +28,7 @@ export class RestaurantService {
       data: placeSearchResult,
     };
   }
+
   async requestGemini(message: string) {
     const config = {
       responseMimeType: 'application/json',
