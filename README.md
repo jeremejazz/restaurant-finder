@@ -6,7 +6,23 @@
 <img src="images/chef-logo.svg" alt="Chef Hat" height="250px"  />
 </p>
 
+## About 
+API for searching restaurants using natural text.
+
+
 ## Project setup
+
+### Pre-Requisites
+- Node 22.x.x
+- npm 10.x.x
+
+### Setup 
+
+Download/Clone the repository
+
+```sh
+git clone https://github.com/jeremejazz/restaurant-finder.git
+```
 
 In the root directory, create a copy of `.env.example` to `.env`
 
@@ -16,13 +32,13 @@ cp .env.example .env
 
 Configure `.env` file the environment variables. Be sure to provide the `GEMINI_API_KEY`, `FOURSQUARE_API_KEY`, and `CODE`.
 
-Install dependencies
+Install node packages
 
 ```bash
-$ npm ci
+$ npm install
 ```
 
-## Compile and run the project
+### Compile and run the project
 
 ```bash
 # development
@@ -35,7 +51,7 @@ $ npm run start:dev
 $ npm run start:prod
 ```
 
-## Run tests
+### Run tests
 
 ```bash
 # unit tests
