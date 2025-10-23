@@ -4,7 +4,7 @@ import { Card, For } from "@chakra-ui/react";
 const SearchResults = () => {
 
     return (
-            <For each={['subtle', 'outline', 'elevated', 'filled', 'ghost']}>
+            <For each={['subtle', 'outline', 'elevated', 'filled', 'ghost','1', '2','3','4','5']}>
               {(variant) => (
                 <Card.Root width={{ base: "100%", md: "320px" }} variant={'outline'} key={variant}>
                   <Card.Body gap="2">

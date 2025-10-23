@@ -5,7 +5,7 @@ const Header = () => {
   return (
     <Box as="header"  shadow="sm" px={4} py={3}>
     <Heading as="h1" size="lg"   textAlign="center">
-      Restaurant Finder
+      resto-finder.ai
     </Heading>
     <ColorModeButton position="absolute" top={2} right={4} />
     </Box>
