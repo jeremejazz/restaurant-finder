@@ -1,0 +1,1 @@
+# Restaurant Finder Front-end application
